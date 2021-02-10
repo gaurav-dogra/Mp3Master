@@ -14,12 +14,6 @@ class SongTest {
     Song song5 = new Song(null, null, null, null, null);
 
     @Test
-    void print() {
-        System.out.println(song1);
-        System.out.println(song5);
-    }
-
-    @Test
     void testToString() {
         assertEquals(song1.toString(), "Song{id=1, title='Willow', artist='Paul Schwartz & Mario Grigorov', " +
                 "album='Aria 1', year='1997'}", "Incorrect string representation");
