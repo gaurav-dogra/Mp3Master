@@ -28,9 +28,9 @@ class SongTest {
 
     @Test
     void testEquals() {
-        assertEquals(song2, song1, song1 + " should be equal to " + song2);
-        assertNotEquals(song1, song3, song3 + " should not be equal to " + song1);
-        assertNotEquals(song4, song1, song3 + " should not be equal to " + song4);
+        assertEquals(song2, song1, String.format("%s should be equal to %s", song1, song2));
+        assertNotEquals(song1, song3, String.format("%s should not be equal to %s", song3, song1));
+        assertNotEquals(song4, song1, String.format("%s should not be equal to %s", song3, song4));
     }
 
     @Test
@@ -39,9 +39,9 @@ class SongTest {
                 song1.hashCode(), "Hash code is not correct");
 
         assertNotEquals(song1.hashCode(), song3.hashCode(),
-                "Hash codes of " + song1 + " and " + song3 + " must be different");
+                String.format("Hash codes of %s and %s must be different", song1, song3));
         assertEquals(song1.hashCode(), song2.hashCode(),
-                "Hash codes of  " + song1 + " and " + song3 + " must be the same");
+                String.format("Hash codes of  %s and %s must be the same", song1, song3));
     }
 
     @Test
