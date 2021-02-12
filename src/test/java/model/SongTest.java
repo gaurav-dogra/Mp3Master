@@ -14,21 +14,16 @@ class SongTest {
     Song song5 = new Song(null, null, null, null, null);
 
     @Test
-    void print() {
-        System.out.println(song1);
-        System.out.println(song5);
-    }
-
-    @Test
     void testToString() {
-        assertEquals(song1.toString(), "Song{id=1, title='Willow', artist='Paul Schwartz & Mario Grigorov', " +
-                "album='Aria 1', year='1997'}", "Incorrect string representation");
-        assertEquals(song5.toString(), "Song{id=n/a, title='n/a', artist='n/a', album='n/a', year='n/a'}",
+        assertEquals(song1.toString(), "Song{id=1, title=Willow, artist=Paul Schwartz & Mario Grigorov, " +
+                "album=Aria 1, year=1997}", "Incorrect string representation");
+        assertEquals(song5.toString(), "Song{id=n/a, title=n/a, artist=n/a, album=n/a, year=n/a}",
                 "Incorrect string representation");
         assertEquals(song1.toString(), song2.toString(), "Incorrect string representation");
         assertNotEquals(song2.toString(), song3.toString(), "Incorrect string representation");
-        assertNotEquals(song1.toString(), "Song{id=1, title='Willow', " +
-                "artist='Paul Schwartz & Mario Grigorov ', album='Aria 1', year='1997'}",
+        // extra blank space in the string representation of song1 below
+        assertNotEquals(song1.toString(), "Song{id=1, title=Willow, " +
+                "artist=Paul Schwartz & Mario Grigorov, album=Aria 1, year=1997}",
                 "Incorrect string representation");
     }
 
