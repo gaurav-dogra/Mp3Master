@@ -15,15 +15,15 @@ class SongTest {
 
     @Test
     void testToString() {
-        assertEquals(song1.toString(), "Song{id=1, title=Willow, artist=Paul Schwartz & Mario Grigorov, " +
-                "album=Aria 1, year=1997}", "Incorrect string representation");
-        assertEquals(song5.toString(), "Song{id=n/a, title=n/a, artist=n/a, album=n/a, year=n/a}",
+        assertEquals(song1.toString(), "Song(id=1, title=Willow, artist=Paul Schwartz & Mario Grigorov, " +
+                "album=Aria 1, year=1997)", "Incorrect string representation");
+        assertEquals(song5.toString(), "Song(id=null, title=null, artist=null, album=null, year=null)",
                 "Incorrect string representation");
         assertEquals(song1.toString(), song2.toString(), "Incorrect string representation");
         assertNotEquals(song2.toString(), song3.toString(), "Incorrect string representation");
-        // extra blank space in the string representation of song1 below
-        assertNotEquals(song1.toString(), "Song{id=1, title=Willow, " +
-                "artist=Paul Schwartz & Mario Grigorov, album=Aria 1, year=1997}",
+        // one extra blank space Mario and Grigorov
+        assertNotEquals(song1.toString(), "Song(id=1, title=Willow, " +
+                "artist=Paul Schwartz & Mario  Grigorov, album=Aria 1, year=1997)",
                 "Incorrect string representation");
     }
 
@@ -35,43 +35,32 @@ class SongTest {
     }
 
     @Test
-    void testHashCode() {
-        assertEquals(Objects.hash("1", "Willow", "Paul Schwartz & Mario Grigorov", "Aria 1", "1997"),
-                song1.hashCode(), "Hash code is not correct");
-
-        assertNotEquals(song1.hashCode(), song3.hashCode(),
-                "Hash codes of " + song1 + " and " + song3 + " must be different");
-        assertEquals(song1.hashCode(), song2.hashCode(),
-                "Hash codes of  " + song1 + " and " + song3 + " must be the same");
-    }
-
-    @Test
     void getId() {
         assertEquals(song1.getId(), "1", "Incorrect id");
-        assertEquals(song5.getId(), "n/a", "Incorrect id");
+        assertNull(song5.getId(), "Incorrect id");
     }
 
     @Test
     void getTitle() {
         assertEquals(song1.getTitle(), "Willow", "Incorrect title");
-        assertEquals(song5.getTitle(), "n/a", "Incorrect title");
+        assertNull(song5.getTitle(), "Incorrect title");
     }
 
     @Test
     void getArtist() {
         assertEquals(song1.getArtist(), "Paul Schwartz & Mario Grigorov", "Incorrect artist");
-        assertEquals(song5.getArtist(), "n/a", "Incorrect artist");
+        assertNull(song5.getArtist(), "Incorrect artist");
     }
 
     @Test
     void getAlbum() {
         assertEquals(song1.getAlbum(), "Aria 1", "Incorrect album");
-        assertEquals(song5.getAlbum(), "n/a", "Incorrect album");
+        assertNull(song5.getAlbum(), "Incorrect album");
     }
 
     @Test
     void getYear() {
         assertEquals(song1.getYear(), "1997", "Incorrect year");
-        assertEquals(song5.getYear(), "n/a", "Incorrect year");
+        assertNull(song5.getYear(), "Incorrect year");
     }
 }

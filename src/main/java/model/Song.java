@@ -16,7 +16,4 @@ public class Song {
     private final String album;
     private final String year;
 
-    private String getStringOrNA(String str) {
-        return str == null || str.isBlank() ? NOT_AVAILABLE : str;
-    }
 }
