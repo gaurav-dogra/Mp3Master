@@ -9,7 +9,6 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 public class Song {
-    private static final String NOT_AVAILABLE = "n/a";
     private final String id;
     private final String title;
     private final String artist;
