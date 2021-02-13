@@ -1,18 +1,18 @@
-//import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-//@Slf4j
+@Slf4j
 public class Application {
 
     private final List<File> mp3Files = new ArrayList<>();
 
     public List<File> start(String[] args) {
         if (args == null || args.length == 0) {
-            System.out.println("No file name passed");
+            log.error("No file name passed");
             return null;
         }
 
