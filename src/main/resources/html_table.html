@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      }
+      .container {
+        margin: auto;
+        max-width: 75vw;
+        display: flex;
+        flex-direction: row;
+      }
+
+      tfoot {
+        border-top: 2px solid goldenrod;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .id {
+        width: auto;
+        padding: 5px;
+      }
+
+      td {
+        max-width: 100px;
+        font-weight: 500;
+        text-align: center;
+        padding: 0.5rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .info {
+        padding: 0.5rem 1.2rem;
+        font-style: italic;
+        font-size: 0.8rem;
+        font-weight: 400;
+        text-align: right;
+        border: 0;
+      }
+
+      thead {
+        background: dodgerblue;
+	    color: white;
+        font-size: 1.2rem;
+      }
+
+      tbody tr:nth-child(odd) {
+        background: blanchedalmond;
+      }
+    </style>
+    <title>Song List</title>
+</head>
+<body>
+<h1 align="center">Song List</h1>
+<div class="container">
+    <table>
+        <thead>
+        <tr>
+            <th class="id">id</th>
+            <th class="title">title</th>
+            <th class="artist">artist</th>
+            <th class="album">album</th>
+            <th class="year">year</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--Data rows start-->
+        <tr>
+            <td>125</td>
+            <td>Song 1</td>
+            <td>Artist 1</td>
+            <td>Album 1</td>
+            <td>1998</td>
+        </tr>
+        <tr>
+            <td>234</td>
+            <td>Song 2</td>
+            <td>Artist 2</td>
+            <td>Album 2</td>
+            <td>2001</td>
+        </tr>
+        <tr>
+            <td>57</td>
+            <td>Song 3</td>
+            <td>Artist 3</td>
+            <td>Album 3</td>
+            <td>1997</td>
+        </tr>
+        <tr>
+            <td>659</td>
+            <td>Very Long Song Name 4</td>
+            <td>Very Long Artist Name 4</td>
+            <td>Very Long Album Name 4</td>
+            <td>2019</td>
+        </tr>
+        <!--Data rows end-->
+        </tbody>
+        <tfoot>
+        <tr>
+            <td class="info" colspan="5">
+                Created by Mp3Master,
+                <!--Timestamp-->#timestamp
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+</body>
+</html>
