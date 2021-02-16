@@ -11,6 +11,7 @@ public class FolderScanner {
 
     private static void scanMp3(File folder, List<File> mp3Files) {
         File[] files = folder.listFiles();
+
         if (files != null) {
             for (File currentFile : files) {
                 if (currentFile.isDirectory()) {

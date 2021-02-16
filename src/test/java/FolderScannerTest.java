@@ -60,6 +60,6 @@ class FolderScannerTest {
     void start() {
         assertEquals(8, mp3Files.size(), "Expected: 8, Actual: " + mp3Files.size());
         assertTrue(expectedFiles.containsAll(mp3Files), "Files are different");
-        assertEquals(0, FolderScanner.scanMp3("").size(), "empty String gets empty list");
+        assertEquals(0, FolderScanner.scanMp3("").size(), "empty Str should have empty list");
     }
 }
