@@ -44,12 +44,8 @@ public class SongDaoImpl implements Dao<Song> {
     }
 
     @Override
-    public Optional<Song> get(String id) {
-        Song song = songs.stream()
-                .filter(s -> id.equals(s.getId()))
-                .findAny()
-                .orElse(null);
-        return Optional.ofNullable(song);
+    public Optional<Song> get(int id) {
+        return songs.stream().filter(s -> (id == s.getId())).findAny();
     }
 
     @Override
@@ -62,7 +58,6 @@ public class SongDaoImpl implements Dao<Song> {
         songs.add(song);
         try {
             PreparedStatement stmt = connection.prepareStatement(INSERT);
-            stmt.setString(1, song.getId());
             stmt.setString(2, song.getTitle());
             stmt.setString(3, song.getArtist());
             stmt.setString(4, song.getAlbum());
