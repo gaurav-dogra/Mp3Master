@@ -3,6 +3,8 @@ import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
 import com.mpatric.mp3agic.ID3v1;
 import lombok.extern.slf4j.Slf4j;
+import model.Song;
+import model.SongDaoImpl;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,29 +17,39 @@ public class Application {
     private List<File> mp3Files = new ArrayList<>();
 
     public void start(String[] args) {
-        if(!isArgsPresent(args)) { return; }
+        if (!isArgsPresent(args)) {
+            return;
+        }
         mp3Files = FolderScanner.scanMp3(args[0]);
         saveMP3FilesMetadata();
     }
 
     private void saveMP3FilesMetadata() {
+        SongDaoImpl songDb = new SongDaoImpl();
+        if (songDb.connect()) {
+            System.out.println("connected to the database");
+        } else {
+            System.out.println("Error connecting to the database");
+        }
+
         for (File aMp3 : mp3Files) {
+
             Mp3File mp3file = null;
             try {
                 mp3file = new Mp3File(aMp3);
             } catch (IOException | UnsupportedTagException | InvalidDataException e) {
-                System.out.println(aMp3.getName() + " does not have a tag");
+                System.out.println("Error reading tags of " + aMp3.getName());
+                continue;
             }
-            assert mp3file != null;
-            if (mp3file.hasId3v1Tag()) {
-                ID3v1 id3v1Tag = mp3file.getId3v1Tag();
-                System.out.println("Artist: " + id3v1Tag.getArtist());
-                System.out.println("Title: " + id3v1Tag.getTitle());
-                System.out.println("Album: " + id3v1Tag.getAlbum());
-                System.out.println("Year: " + id3v1Tag.getYear());
-            } else {
-                System.out.println(aMp3.getName() + " does not have a tag");
+
+            if (!mp3file.hasId3v1Tag()) {
+                continue;
             }
+            ID3v1 id3v1Tag = mp3file.getId3v1Tag();
+            String title = id3v1Tag.getTitle();
+            String artist = id3v1Tag.getArtist();
+            String album = id3v1Tag.getAlbum();
+            String year = id3v1Tag.getYear();
         }
     }
 
