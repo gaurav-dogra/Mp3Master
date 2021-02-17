@@ -25,8 +25,8 @@ public class Application {
     }
 
     private void saveMP3FilesMetadata() {
-        SongDaoImpl songDb = new SongDaoImpl();
-        if (songDb.connect()) {
+        SongDaoImpl dao = new SongDaoImpl();
+        if (dao.connect()) {
             System.out.println("connected to the database");
         } else {
             System.out.println("Error connecting to the database");
@@ -34,7 +34,7 @@ public class Application {
 
         for (File aMp3 : mp3Files) {
 
-            Mp3File mp3file = null;
+            Mp3File mp3file;
             try {
                 mp3file = new Mp3File(aMp3);
             } catch (IOException | UnsupportedTagException | InvalidDataException e) {
@@ -50,6 +50,8 @@ public class Application {
             String artist = id3v1Tag.getArtist();
             String album = id3v1Tag.getAlbum();
             String year = id3v1Tag.getYear();
+            Song song = new Song(null, title, artist, album, year);
+            dao.save(song);
         }
     }
 
