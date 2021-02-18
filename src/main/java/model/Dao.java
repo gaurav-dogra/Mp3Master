@@ -9,5 +9,5 @@ public interface Dao<T> {
     void save(T t);
 //    void update(T t, String[] params);
     void delete(T t);
-    boolean connect() throws Exception;
+    boolean connect(String DB_NAME) throws Exception;
 }

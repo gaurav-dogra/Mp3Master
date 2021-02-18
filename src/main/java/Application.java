@@ -15,6 +15,7 @@ import java.util.List;
 public class Application {
 
     private List<File> mp3Files = new ArrayList<>();
+    public static final String DB_NAME = "Mp3Master.db";
 
     public void start(String[] args) {
         if (!isArgsPresent(args)) {
@@ -26,7 +27,7 @@ public class Application {
 
     private void saveMP3FilesMetadata() {
         SongDaoImpl dao = new SongDaoImpl();
-        if (dao.connect()) {
+        if (dao.connect(DB_NAME)) {
             System.out.println("connected to the database");
         } else {
             System.out.println("Error connecting to the database");
@@ -50,8 +51,7 @@ public class Application {
             String artist = id3v1Tag.getArtist();
             String album = id3v1Tag.getAlbum();
             String year = id3v1Tag.getYear();
-            Song song = new Song(null, title, artist, album, year);
-            dao.save(song);
+            dao.save(new Song(-1, title, artist, album, year));
         }
     }
 
