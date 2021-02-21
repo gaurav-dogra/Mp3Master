@@ -8,21 +8,19 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class SongServlet extends HttpServlet {
+public class AboutServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         String message = new Scanner(Objects.requireNonNull(HomeServlet.class.getClassLoader()
-                .getResourceAsStream("song_table.html")),
+                .getResourceAsStream("about.html")),
                 StandardCharsets.UTF_8)
                 .useDelimiter("\\Z")
                 .next();
 
         response.getWriter().println(message);
-
         response.setContentType("text/html;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
-
     }
 }
