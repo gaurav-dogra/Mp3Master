@@ -1,15 +1,12 @@
 package model;
 
-import org.sqlite.SQLiteDataSource;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class SongDaoImpl implements Dao<Song> {
-
-    public static final String JDBC_SQLITE = "jdbc:sqlite:";
+    DataSource dataSource;
     private final String TABLE_NAME = "songs";
     private final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ("
             + " id INTEGER PRIMARY KEY,"
@@ -22,17 +19,14 @@ public class SongDaoImpl implements Dao<Song> {
             "VALUES(?, ?, ?, ?, ?)";
     private final String GET_ALL_DATA = "SELECT * FROM " + TABLE_NAME;
     private final String DELETE_BY_ID = "DELETE FROM " + TABLE_NAME + " WHERE id=?";
-    private Connection connection;
 
     @Override
-    public boolean connect(String DB_NAME) {
-        SQLiteDataSource dataSource = new SQLiteDataSource();
-        dataSource.setUrl(JDBC_SQLITE + DB_NAME);
-        try {
-            connection = dataSource.getConnection();
+    public boolean connect(String dbName) {
+        dataSource = DataSource.getInstance(dbName);
+        try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
             stmt.execute(CREATE_TABLE);
-        } catch (SQLException e) {
+        } catch (NullPointerException | SQLException e) {
             e.printStackTrace();
             return false;
         }
@@ -48,10 +42,11 @@ public class SongDaoImpl implements Dao<Song> {
     @Override
     public List<Song> getAll() {
         List<Song> songs = new ArrayList<>();
-        PreparedStatement stmt = null;
-        try {
-            stmt = connection.prepareStatement(GET_ALL_DATA);
+        try (Connection connection = dataSource.getConnection()) {
+
+            PreparedStatement stmt = connection.prepareStatement(GET_ALL_DATA);
             ResultSet rs = stmt.executeQuery();
+
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
@@ -60,6 +55,7 @@ public class SongDaoImpl implements Dao<Song> {
                 String year = rs.getString("year");
                 songs.add(new Song(id, title, artist, album, year));
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -72,7 +68,7 @@ public class SongDaoImpl implements Dao<Song> {
         if (songs.contains(song)) {
             return;
         }
-        try {
+        try (Connection connection = dataSource.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement(INSERT);
             stmt.setString(2, song.getTitle());
             stmt.setString(3, song.getArtist());
@@ -90,7 +86,7 @@ public class SongDaoImpl implements Dao<Song> {
     }
 
     private void delete(int id) {
-        try {
+        try (Connection connection = dataSource.getConnection()){
             PreparedStatement stmt = connection.prepareStatement(DELETE_BY_ID);
             stmt.setInt(1, id);
             stmt.executeUpdate();

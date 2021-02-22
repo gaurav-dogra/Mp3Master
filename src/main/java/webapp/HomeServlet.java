@@ -14,8 +14,7 @@ public class HomeServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         String message = new Scanner(Objects.requireNonNull(HomeServlet.class.getClassLoader()
-                .getResourceAsStream("home.html")),
-                StandardCharsets.UTF_8)
+                .getResourceAsStream("home.html")), StandardCharsets.UTF_8)
                 .useDelimiter("\\Z")
                 .next();
 
